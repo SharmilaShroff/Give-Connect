@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: giveconnect
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run frontend/Home.py --server.port $PORT --server.address 0.0.0.0 --server.headless true --browser.gatherUsageStats false
+    envVars:
+      - key: MYSQL_HOST
+        sync: false
+      - key: MYSQL_PORT
+        sync: false
+      - key: MYSQL_USER
+        sync: false
+      - key: MYSQL_PASSWORD
+        sync: false
+      - key: MYSQL_DATABASE
+        sync: false
+      - key: GROQ_API_KEY_PRIORITY
+        sync: false
+      - key: GROQ_API_KEY_MATCHING
+        sync: false
+      - key: GROQ_API_KEY_SCAM
+        sync: false
+      - key: GROQ_API_KEY_CHATBOT
+        sync: false
+      - key: GROQ_BASE_URL
+        value: https://api.groq.com/openai/v1
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+      - key: UPLOAD_DIR
+        value: uploads
+      - key: SCAM_REPORT_THRESHOLD
+        value: "3"
+      - key: FOOD_POST_LIFETIME_HOURS
+        value: "24"
+      - key: PYTHON_VERSION
+        value: "3.11.0"
