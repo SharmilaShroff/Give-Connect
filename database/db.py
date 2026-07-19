@@ -16,15 +16,25 @@ _POOL = None
 def _init_pool():
     global _POOL
     if _POOL is None:
-        _POOL = pooling.MySQLConnectionPool(
+        pool_kwargs = dict(
             pool_name="donation_social_pool",
-            pool_size=10,
+            pool_size=5,
             host=os.getenv("MYSQL_HOST", "localhost"),
             port=int(os.getenv("MYSQL_PORT", "3306")),
             user=os.getenv("MYSQL_USER", "root"),
             password=os.getenv("MYSQL_PASSWORD", ""),
             database=os.getenv("MYSQL_DATABASE", "donation_social"),
         )
+        # Aiven and other cloud providers require SSL
+        if os.getenv("MYSQL_SSL", "").lower() == "true":
+            import ssl
+            ssl_context = ssl.create_default_context()
+            ssl_context.check_hostname = False
+            ssl_context.verify_mode = ssl.CERT_NONE
+            pool_kwargs["ssl_ca"] = ""
+            pool_kwargs["ssl_disabled"] = False
+            pool_kwargs["tls_versions"] = ["TLSv1.2", "TLSv1.3"]
+        _POOL = pooling.MySQLConnectionPool(**pool_kwargs)
     return _POOL
 
 
