@@ -101,39 +101,6 @@ def inject_custom_theme():
             background-color: rgba(255, 255, 255, 0.1) !important;
         }}
         
-        /* Make sidebar secondary buttons (Home) look exactly like page links */
-        div.element-container:has(.home-marker) + div.element-container button[kind="secondary"] {{
-            justify-content: flex-start !important;
-            padding-left: 12px !important;
-            color: {text_color} !important;
-            border-radius: 8px !important;
-            margin: 4px 12px !important;
-            width: calc(100% - 24px) !important;
-            font-weight: normal !important;
-            border: none !important;
-            background-color: transparent !important;
-        }}
-        div.element-container:has(.home-marker) + div.element-container button[kind="secondary"]:hover {{
-            background-color: rgba(255, 255, 255, 0.1) !important;
-        }}
-        div.element-container:has(.home-marker) + div.element-container button[kind="secondary"] p {{
-            font-size: 0 !important;
-        }}
-        div.element-container:has(.home-marker) + div.element-container button[kind="secondary"] p::before {{
-            content: "\\e88a";
-            font-family: "Material Symbols Rounded" !important;
-            font-size: 1.25rem !important;
-            margin-right: 12px !important;
-            vertical-align: middle !important;
-            font-weight: 400 !important;
-        }}
-        div.element-container:has(.home-marker) + div.element-container button[kind="secondary"] p::after {{
-            content: "Home" !important;
-            font-family: 'Inter', sans-serif !important;
-            font-size: 1rem !important;
-            vertical-align: middle !important;
-        }}
-        
         /* Notifications styling for theme */
         .unread-dot {{
             height: 8px;
@@ -324,14 +291,7 @@ def render_sidebar():
         st.sidebar.page_link("pages/9_Admin_Users.py", label="User Moderation", icon=":material/group:")
         st.sidebar.page_link("pages/10_Admin_Verification.py", label="NGO Verification", icon=":material/verified:")
     else:
-        st.sidebar.markdown('<span class="home-marker" style="display:none;"></span>', unsafe_allow_html=True)
-        if st.sidebar.button("Home", key="nav_home_btn", use_container_width=True):
-            if "feed_posts" in st.session_state:
-                del st.session_state["feed_posts"]
-            try:
-                st.switch_page("pages/1_Feed.py")
-            except Exception:
-                st.rerun()
+        st.sidebar.page_link("pages/1_Feed.py", label="Home", icon=":material/home:")
                 
         st.sidebar.page_link("pages/3_DM.py", label=dm_label, icon=":material/chat:")
         st.sidebar.page_link("pages/5_Create_Post.py", label="Create", icon=":material/add_box:")
@@ -392,7 +352,7 @@ def render_chatbot():
         """
         <style>
         /* Floating Chatbot FAB container */
-        span.chatbot-marker + div[data-testid="stPopover"] {
+        div.element-container:has(span.chatbot-marker) + div.element-container div[data-testid="stPopover"] {
             position: fixed !important;
             bottom: 30px !important;
             right: 30px !important;
@@ -400,7 +360,7 @@ def render_chatbot():
             width: auto !important;
         }
         
-        span.chatbot-marker + div[data-testid="stPopover"] > button {
+        div.element-container:has(span.chatbot-marker) + div.element-container div[data-testid="stPopover"] > button {
             border-radius: 50% !important;
             width: 64px !important;
             height: 64px !important;
@@ -415,20 +375,20 @@ def render_chatbot():
             padding: 0 !important;
         }
         
-        span.chatbot-marker + div[data-testid="stPopover"] > button:hover {
+        div.element-container:has(span.chatbot-marker) + div.element-container div[data-testid="stPopover"] > button:hover {
             transform: scale(1.1) !important;
             box-shadow: 0 8px 25px rgba(79, 70, 229, 0.6) !important;
         }
         
-        span.chatbot-marker + div[data-testid="stPopover"] > button svg {
+        div.element-container:has(span.chatbot-marker) + div.element-container div[data-testid="stPopover"] > button svg {
             display: none !important; /* Hide chevron */
         }
         
-        span.chatbot-marker + div[data-testid="stPopover"] > button p {
+        div.element-container:has(span.chatbot-marker) + div.element-container div[data-testid="stPopover"] > button p {
             display: none !important; /* Hide standard text */
         }
         
-        span.chatbot-marker + div[data-testid="stPopover"] > button::after {
+        div.element-container:has(span.chatbot-marker) + div.element-container div[data-testid="stPopover"] > button::after {
             content: "🤖";
             font-size: 42px !important;
             position: absolute !important;
