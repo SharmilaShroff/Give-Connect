@@ -137,7 +137,7 @@ def show_post_dialog(post, user_id):
         with action_cols[0]:
             if liked:
                 st.markdown('<span class="liked-heart-marker" style="display:none;"></span>', unsafe_allow_html=True)
-            if st.button(like_icon, key=f"dlg_like_{post['post_id']}"):
+            if st.button(like_icon, key=f"dlg_like_{post['post_id']}", type="tertiary"):
                 if liked:
                     posts_backend.unlike_post(user_id, post["post_id"])
                 else:
@@ -145,10 +145,10 @@ def show_post_dialog(post, user_id):
                 st.rerun()
                 
         with action_cols[1]:
-            st.button(":material/chat_bubble_outline:", key=f"dlg_chat_{post['post_id']}")
+            st.button(":material/chat_bubble_outline:", key=f"dlg_chat_{post['post_id']}", type="tertiary")
             
         with action_cols[2]:
-            if st.button(":material/send:", key=f"dlg_share_{post['post_id']}"):
+            if st.button(":material/send:", key=f"dlg_share_{post['post_id']}", type="tertiary"):
                 posts_backend.share_post(user_id, post["post_id"])
                 st.toast("Shared!")
 
@@ -157,7 +157,7 @@ def show_post_dialog(post, user_id):
         with action_cols[3]:
             if is_saved:
                 st.markdown('<span class="saved-bookmark-marker" style="display:none;"></span>', unsafe_allow_html=True)
-            if st.button(save_icon, key=f"dlg_save_{post['post_id']}"):
+            if st.button(save_icon, key=f"dlg_save_{post['post_id']}", type="tertiary"):
                 if is_saved:
                     posts_backend.unsave_post(user_id, post["post_id"])
                 else:
@@ -166,7 +166,7 @@ def show_post_dialog(post, user_id):
             
         if is_own_profile:
             with action_cols[4]:
-                if st.button(":material/delete:", key=f"dlg_del_{post['post_id']}", help="Delete Post"):
+                if st.button(":material/delete:", key=f"dlg_del_{post['post_id']}", help="Delete Post", type="tertiary"):
                     posts_backend.delete_post(user_id, post["post_id"])
                     st.success("Post deleted.")
                     st.rerun()

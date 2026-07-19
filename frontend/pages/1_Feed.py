@@ -110,17 +110,17 @@ def show_comments_dialog(post, user_id):
         with action_cols[0]:
             if liked:
                 st.markdown('<span class="liked-heart-marker" style="display:none;"></span>', unsafe_allow_html=True)
-            if st.button(like_icon, key=f"dlg_like_{post['post_id']}"):
+            if st.button(like_icon, key=f"dlg_like_{post['post_id']}", type="tertiary"):
                 if liked:
                     posts_backend.unlike_post(user_id, post["post_id"])
                 else:
                     posts_backend.like_post(user_id, post["post_id"])
                 st.rerun()
             
-        if action_cols[1].button(":material/chat_bubble_outline:", key=f"dlg_chat_{post['post_id']}"):
+        if action_cols[1].button(":material/chat_bubble_outline:", key=f"dlg_chat_{post['post_id']}", type="tertiary"):
             pass # already in chat view
             
-        if action_cols[2].button(":material/send:", key=f"dlg_share_{post['post_id']}"):
+        if action_cols[2].button(":material/send:", key=f"dlg_share_{post['post_id']}", type="tertiary"):
             posts_backend.share_post(user_id, post["post_id"])
             st.toast("Shared!")
         st.markdown('</div>', unsafe_allow_html=True)
@@ -206,7 +206,7 @@ def render_post_card(post, user):
         with action_cols[0]:
             if liked:
                 st.markdown('<span class="liked-heart-marker" style="display:none;"></span>', unsafe_allow_html=True)
-            if st.button(like_icon, key=f"like_{post['post_id']}"):
+            if st.button(like_icon, key=f"like_{post['post_id']}", type="tertiary"):
                 if liked:
                     posts_backend.unlike_post(user["user_id"], post["post_id"])
                 else:
@@ -214,12 +214,12 @@ def render_post_card(post, user):
                 st.rerun()
             
         with action_cols[1]:
-            if st.button(":material/chat_bubble_outline:", key=f"comment_btn_{post['post_id']}"):
+            if st.button(":material/chat_bubble_outline:", key=f"comment_btn_{post['post_id']}", type="tertiary"):
                 st.session_state.view_post_id = post["post_id"]
                 st.rerun()
             
         with action_cols[2]:
-            if st.button(":material/send:", key=f"share_{post['post_id']}"):
+            if st.button(":material/send:", key=f"share_{post['post_id']}", type="tertiary"):
                 posts_backend.share_post(user["user_id"], post["post_id"])
                 st.toast("Shared!")
             
@@ -228,7 +228,7 @@ def render_post_card(post, user):
         with action_cols[4]:
             if is_saved:
                 st.markdown('<span class="saved-bookmark-marker" style="display:none;"></span>', unsafe_allow_html=True)
-            if st.button(save_icon, key=f"save_{post['post_id']}"):
+            if st.button(save_icon, key=f"save_{post['post_id']}", type="tertiary"):
                 if is_saved:
                     posts_backend.unsave_post(user["user_id"], post["post_id"])
                 else:

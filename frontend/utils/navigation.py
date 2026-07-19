@@ -149,21 +149,19 @@ def inject_custom_theme():
             padding: 8px !important;
             font-size: 1.2rem !important;
         }}
-        /* Icon Buttons inside Post Cards ONLY */
-        [data-testid="stVerticalBlockBorderWrapper"]:has(.post-card-marker) button[kind="secondary"],
-        [data-testid="stDialog"]:has(.post-card-marker) button[kind="secondary"] {{
+        /* Tertiary Buttons (used for Icons) */
+        div[data-testid="stButton"] button[kind="tertiary"] {{
             background-color: transparent !important;
             border: none !important;
             box-shadow: none !important;
             padding: 8px !important;
-            font-size: 1.75rem !important; /* Increased from 1.2rem */
+            font-size: 1.75rem !important;
+            color: {text_color} !important;
         }}
-        [data-testid="stVerticalBlockBorderWrapper"]:has(.post-card-marker) button[kind="secondary"] span,
-        [data-testid="stDialog"]:has(.post-card-marker) button[kind="secondary"] span {{
-            font-size: 1.75rem !important; /* Ensure material symbol inherits */
+        div[data-testid="stButton"] button[kind="tertiary"] span {{
+            font-size: 1.75rem !important;
         }}
-        [data-testid="stVerticalBlockBorderWrapper"]:has(.post-card-marker) button[kind="secondary"]:hover,
-        [data-testid="stDialog"]:has(.post-card-marker) button[kind="secondary"]:hover {{
+        div[data-testid="stButton"] button[kind="tertiary"]:hover {{
             background-color: transparent !important;
             color: {sec_text} !important;
         }}
