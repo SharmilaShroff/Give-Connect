@@ -12,23 +12,12 @@ from backend.langgraph_flows.priority_flow import get_priority_score
 
 
 def build_feed(viewer_id: str, viewer_interests: list[str], limit: int = 30, use_ai: bool = True):
-    candidates = candidate_feed_posts(viewer_id, limit=50)  # Reduced from 200 to avoid LLM rate limits
-    
-    # 1. Fetch hashtags sequentially to avoid DB pool exhaustion
-    for post in candidates:
-        post["hashtags"] = get_post_hashtags(post["post_id"])
-        
-    # 2. Parallelize the AI scoring (network bound, no DB usage)
-    import concurrent.futures
-    def _score(post):
-        return get_priority_score(post["post_id"], viewer_interests, post["hashtags"], post["impressions"], use_ai=use_ai)
-        
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-        scores = list(executor.map(_score, candidates))
-
-    # 3. Save to DB sequentially
+    candidates = candidate_feed_posts(viewer_id, limit=200)
     scored = []
-    for post, priority_score in zip(candidates, scores):
+    for post in candidates:
+        hashtags = get_post_hashtags(post["post_id"])
+        # priority_score natively ranks by interests > low impressions (ignoring date)
+        priority_score = get_priority_score(post["post_id"], viewer_interests, hashtags, post["impressions"], use_ai=use_ai)
         match_score = priority_score # Store the same for DB logging
         final_score = priority_score
 
@@ -39,6 +28,7 @@ def build_feed(viewer_id: str, viewer_interests: list[str], limit: int = 30, use
             (post["post_id"], viewer_id, priority_score, match_score, final_score,
              priority_score, match_score, final_score),
         )
+        post["hashtags"] = hashtags
         post["priority_score"] = priority_score
         post["match_score"] = match_score
         post["final_score"] = final_score

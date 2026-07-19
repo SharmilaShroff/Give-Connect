@@ -14,7 +14,7 @@ def get_grok_client(key_env_var: str) -> OpenAI:
     api_key = os.getenv(key_env_var)
     if not api_key:
         raise RuntimeError(f"{key_env_var} is not set in the environment (.env).")
-    return OpenAI(api_key=api_key, base_url=GROQ_BASE_URL, max_retries=0, timeout=3.0)
+    return OpenAI(api_key=api_key, base_url=GROQ_BASE_URL)
 
 
 def grok_chat(client: OpenAI, system_prompt: str, user_prompt: str) -> str:
