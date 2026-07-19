@@ -1,4 +1,7 @@
-import frontend.utils.bootstrap  # noqa: F401  (adds project root to sys.path)
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import streamlit as st
 
 from backend import auth
