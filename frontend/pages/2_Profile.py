@@ -100,7 +100,7 @@ def show_post_dialog(post, user_id):
         if post.get("image_path"):
             import os
             if os.path.exists(post["image_path"]):
-                st.image(post["image_path"], use_column_width=True)
+                st.image(post["image_path"], use_container_width=True)
     
     with cols[1]:
         poster = profile_backend.get_user(post["user_id"])

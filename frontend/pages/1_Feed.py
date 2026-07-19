@@ -71,7 +71,7 @@ def show_comments_dialog(post, user_id):
         if post.get("image_path"):
             import os
             if os.path.exists(post["image_path"]):
-                st.image(post["image_path"], use_column_width=True)
+                st.image(post["image_path"], use_container_width=True)
         else:
             st.write(post.get("caption") or "")
     
@@ -182,7 +182,7 @@ def render_post_card(post, user):
         if post.get("image_path"):
             import os
             if os.path.exists(post["image_path"]):
-                st.image(post["image_path"], use_column_width=True)
+                st.image(post["image_path"], use_container_width=True)
         
         st.markdown(
             """

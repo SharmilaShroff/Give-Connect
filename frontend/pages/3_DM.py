@@ -221,10 +221,10 @@ with col_chat:
                         if os.path.exists(m["image_path"]):
                             if is_me:
                                 cc1, cc2 = st.columns([2, 1])
-                                with cc2: st.image(m["image_path"], use_column_width=True)
+                                with cc2: st.image(m["image_path"], use_container_width=True)
                             else:
                                 cc1, cc2 = st.columns([1, 2])
-                                with cc1: st.image(m["image_path"], use_column_width=True)
+                                with cc1: st.image(m["image_path"], use_container_width=True)
 
         # Chat Input CSS
         st.markdown(
