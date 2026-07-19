@@ -379,7 +379,7 @@ with col_feed:
         
     else:
         interests = (user.get("interests") or "").split(",") if user.get("interests") else []
-        feed_posts = build_feed(user["user_id"], interests, limit=25, use_ai=False)
+        feed_posts = build_feed(user["user_id"], interests, limit=25, use_ai=True)
 
     if not feed_posts:
         st.info("No posts to show yet. Follow some users/NGOs or check back soon!")
