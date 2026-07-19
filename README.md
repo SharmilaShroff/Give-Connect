@@ -3,7 +3,7 @@
 A full-stack Instagram-style platform for individuals and NGOs to post, discover, and
 coordinate donations. **Frontend: Streamlit. Backend: Python. Database: MySQL.**
 Three independent **LangGraph** workflows (each with its own Grok/xAI API key) handle
-feed ranking, interest matching, and scam detection; a separate **Gemini**-powered
+feed ranking, interest matching, and scam detection; a separate **Groq**-powered
 chatbot helps donors find relevant posts.
 
 This has been built and tested end-to-end against a real local MySQL instance
