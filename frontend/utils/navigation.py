@@ -430,7 +430,7 @@ def render_chatbot():
         
         span.chatbot-marker + div[data-testid="stPopover"] > button::after {
             content: "🤖";
-            font-size: 32px !important;
+            font-size: 42px !important;
             position: absolute !important;
             top: 50% !important;
             left: 50% !important;

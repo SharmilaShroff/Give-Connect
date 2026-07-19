@@ -18,4 +18,4 @@ def save_upload(uploaded_file, subfolder: str) -> str:
     path = os.path.join(folder, filename)
     with open(path, "wb") as f:
         f.write(uploaded_file.getbuffer())
-    return path
+    return path.replace("\\", "/")

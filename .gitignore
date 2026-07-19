@@ -5,5 +5,5 @@ __pycache__/
 venv/
 env/
 ENV/
-uploads/
+
 .DS_Store
